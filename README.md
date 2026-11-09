@@ -36,3 +36,7 @@ Ten original synthetic controls retain 19 rounds, 13 models, 32 atomic queries a
 ## Limits
 
 At most six atoms, eight indexed rules and 65,536 input bytes. Positive propositional definite clauses only: no negation, denials, variables, functions, relation tuples, unification, SLD search or full Datalog/Prolog syntax. Counts are exact finite enumeration, not probabilities or scalability evidence. Supports are subsets of initial facts, not all proof trees, rule provenance or causal explanations. Native verification shares input validation with generation and validates the canonical report, not a formal proof or signed source. The browser has no independent report verifier. Established inference/model theory, not a new algorithm or a production rule engine.
+
+## Rule-deletion audit (v0.2)
+
+[Every route, every break](https://midya8.github.io/hornlab/rules.html) varies indexed rules while fixing initial facts. Inspect all retained subsets, synchronous closures, all minimal rule supports and all minimal deletion sets, every removal/restoration boundary and both minimal-hitting-set dualities. Initial facts cannot be broken by rule deletion; an already absent atom has the empty deletion set. See [RULES.md](RULES.md) for exact semantics, independent verification, controls and inspected primary sources. Select `--rules` on either CLI entry point, with `--verify` for exported rule audits. The original inference and seed-support inspector remains unchanged.
