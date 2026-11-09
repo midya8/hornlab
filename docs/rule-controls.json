@@ -1,0 +1,322 @@
+[
+  {
+    "name": "Two routes, different-sized supports and cuts",
+    "input": {
+      "atoms": [
+        "seed",
+        "mid",
+        "goal"
+      ],
+      "facts": [
+        "seed"
+      ],
+      "rules": [
+        {
+          "if": [
+            "seed"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "seed"
+          ],
+          "then": "mid"
+        },
+        {
+          "if": [
+            "mid"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "goal"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Unsupported circle has a nonleast supported model",
+    "input": {
+      "atoms": [
+        "seed",
+        "cycle_a",
+        "cycle_b",
+        "goal"
+      ],
+      "facts": [
+        "seed"
+      ],
+      "rules": [
+        {
+          "if": [
+            "cycle_a"
+          ],
+          "then": "cycle_b"
+        },
+        {
+          "if": [
+            "cycle_b"
+          ],
+          "then": "cycle_a"
+        },
+        {
+          "if": [
+            "seed",
+            "cycle_a"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Two minimal support sizes, one earliest round",
+    "input": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "goal"
+      ],
+      "facts": [
+        "a",
+        "b",
+        "c"
+      ],
+      "rules": [
+        {
+          "if": [
+            "a"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "b",
+            "c"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Synchronous chain: do not derive the whole path in round one",
+    "input": {
+      "atoms": [
+        "seed",
+        "bridge",
+        "goal"
+      ],
+      "facts": [
+        "seed"
+      ],
+      "rules": [
+        {
+          "if": [
+            "seed"
+          ],
+          "then": "bridge"
+        },
+        {
+          "if": [
+            "bridge"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Empty-body rule gives an empty support",
+    "input": {
+      "atoms": [
+        "seed",
+        "goal"
+      ],
+      "facts": [
+        "seed"
+      ],
+      "rules": [
+        {
+          "if": [],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Duplicate rule IDs remain separate tied achievers",
+    "input": {
+      "atoms": [
+        "seed",
+        "goal"
+      ],
+      "facts": [
+        "seed"
+      ],
+      "rules": [
+        {
+          "if": [
+            "seed"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "seed"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "A seed breaks the recursive circle",
+    "input": {
+      "atoms": [
+        "a",
+        "b",
+        "goal"
+      ],
+      "facts": [
+        "a"
+      ],
+      "rules": [
+        {
+          "if": [
+            "a"
+          ],
+          "then": "b"
+        },
+        {
+          "if": [
+            "b"
+          ],
+          "then": "a"
+        },
+        {
+          "if": [
+            "a",
+            "b"
+          ],
+          "then": "goal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "An unconstrained atom is not false",
+    "input": {
+      "atoms": [
+        "known",
+        "unknown"
+      ],
+      "facts": [
+        "known"
+      ],
+      "rules": []
+    }
+  },
+  {
+    "name": "Empty declared universe has one model",
+    "input": {
+      "atoms": [],
+      "facts": [],
+      "rules": []
+    }
+  },
+  {
+    "name": "All 64 initial-fact subsets, empty rule set",
+    "input": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "facts": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "rules": []
+    }
+  },
+  {
+    "name": "Eight rules with conjunction and alternate routes",
+    "input": {
+      "atoms": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "goal"
+      ],
+      "facts": [
+        "a",
+        "b"
+      ],
+      "rules": [
+        {
+          "if": [
+            "a"
+          ],
+          "then": "c"
+        },
+        {
+          "if": [
+            "b"
+          ],
+          "then": "d"
+        },
+        {
+          "if": [
+            "c",
+            "d"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "a",
+            "b"
+          ],
+          "then": "e"
+        },
+        {
+          "if": [
+            "e"
+          ],
+          "then": "goal"
+        },
+        {
+          "if": [
+            "goal"
+          ],
+          "then": "c"
+        },
+        {
+          "if": [
+            "c"
+          ],
+          "then": "c"
+        },
+        {
+          "if": [],
+          "then": "b"
+        }
+      ]
+    }
+  }
+]
