@@ -1,0 +1,32 @@
+{
+  "atoms": [
+    "seed",
+    "cycle_a",
+    "cycle_b",
+    "goal"
+  ],
+  "facts": [
+    "seed"
+  ],
+  "rules": [
+    {
+      "if": [
+        "cycle_a"
+      ],
+      "then": "cycle_b"
+    },
+    {
+      "if": [
+        "cycle_b"
+      ],
+      "then": "cycle_a"
+    },
+    {
+      "if": [
+        "seed",
+        "cycle_a"
+      ],
+      "then": "goal"
+    }
+  ]
+}
