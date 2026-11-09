@@ -10,9 +10,17 @@ from hornlab import analyze
 cs=json.load(open('docs/controls.json'))
 json.dump([{'input':c['input'],'report':analyze(c['input'])} for c in cs],open(sys.argv[1],'w'))
 PY
+python - "$scratch/expected-rules.json" <<'PYRULES'
+import json,sys
+from hornlab.rule_audit import audit_rules
+cs=json.load(open('docs/rule-controls.json'))
+json.dump([{'input':c['input'],'report':audit_rules(c['input'])} for c in cs],open(sys.argv[1],'w'))
+PYRULES
 uv build --wheel --out-dir "$scratch/dist"
 uv venv "$scratch/env"
 uv pip install --python "$scratch/env/bin/python" "$scratch"/dist/*.whl
 cp tools/verify_installed.py "$scratch/verify_installed.py"
+cp tools/verify_rules_installed.py "$scratch/verify_rules_installed.py"
 cd "$scratch"
 PATH="$scratch/env/bin:$PATH" PYTHONPATH= "$scratch/env/bin/python" verify_installed.py "$root" expected.json
+PATH="$scratch/env/bin:$PATH" PYTHONPATH= "$scratch/env/bin/python" verify_rules_installed.py "$root" expected-rules.json
