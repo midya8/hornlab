@@ -1,0 +1,555 @@
+[
+  {
+    "name": "A local count can keep a dead cycle",
+    "request": {
+      "program": {
+        "atoms": [
+          "p",
+          "q"
+        ],
+        "facts": [
+          "p"
+        ],
+        "rules": [
+          {
+            "if": [
+              "p"
+            ],
+            "then": "q"
+          },
+          {
+            "if": [
+              "q"
+            ],
+            "then": "p"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "p"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [],
+          "insert": [
+            "q"
+          ]
+        },
+        {
+          "delete": [
+            "q"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "Overdeleted does not mean finally lost",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "x",
+          "y"
+        ],
+        "facts": [
+          "a",
+          "b"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "x"
+          },
+          {
+            "if": [
+              "b"
+            ],
+            "then": "x"
+          },
+          {
+            "if": [
+              "x"
+            ],
+            "then": "y"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [
+            "b"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "A conjunction loses one prerequisite",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "x"
+        ],
+        "facts": [
+          "a",
+          "b"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a",
+              "b"
+            ],
+            "then": "x"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [],
+          "insert": [
+            "a"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "An explicit fact survives a broken derivation",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "x",
+          "y"
+        ],
+        "facts": [
+          "a",
+          "x"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "x"
+          },
+          {
+            "if": [
+              "x"
+            ],
+            "then": "y"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [
+            "x"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "An empty-body rule restores the seed",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b"
+        ],
+        "facts": [
+          "a"
+        ],
+        "rules": [
+          {
+            "if": [],
+            "then": "a"
+          },
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "Insertion crosses several delta rounds",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "facts": [],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          },
+          {
+            "if": [
+              "b"
+            ],
+            "then": "c"
+          },
+          {
+            "if": [
+              "b",
+              "c"
+            ],
+            "then": "d"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [],
+          "insert": [
+            "a"
+          ]
+        },
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "A deleted explicit fact can remain inferred",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "c"
+        ],
+        "facts": [
+          "a",
+          "b"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          },
+          {
+            "if": [
+              "b"
+            ],
+            "then": "c"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "b"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "Delete and insert in the same transaction",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "x",
+          "y",
+          "g"
+        ],
+        "facts": [
+          "a"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "x"
+          },
+          {
+            "if": [
+              "b"
+            ],
+            "then": "y"
+          },
+          {
+            "if": [
+              "x",
+              "y"
+            ],
+            "then": "g"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": [
+            "b"
+          ]
+        },
+        {
+          "delete": [],
+          "insert": [
+            "a"
+          ]
+        },
+        {
+          "delete": [
+            "b"
+          ],
+          "insert": [
+            "x"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Self-support is not an external derivation",
+    "request": {
+      "program": {
+        "atoms": [
+          "a"
+        ],
+        "facts": [
+          "a"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "a"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [],
+          "insert": [
+            "a"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "No-op sets do not invent a materialization change",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b"
+        ],
+        "facts": [
+          "a"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "b"
+          ],
+          "insert": [
+            "a"
+          ]
+        },
+        {
+          "delete": [],
+          "insert": []
+        },
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "Duplicate indexed rules and a six-atom cycle",
+    "request": {
+      "program": {
+        "atoms": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "facts": [
+          "a",
+          "f"
+        ],
+        "rules": [
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          },
+          {
+            "if": [
+              "a"
+            ],
+            "then": "b"
+          },
+          {
+            "if": [
+              "b"
+            ],
+            "then": "c"
+          },
+          {
+            "if": [
+              "c"
+            ],
+            "then": "d"
+          },
+          {
+            "if": [
+              "d"
+            ],
+            "then": "e"
+          },
+          {
+            "if": [
+              "e"
+            ],
+            "then": "f"
+          },
+          {
+            "if": [
+              "f"
+            ],
+            "then": "a"
+          }
+        ]
+      },
+      "updates": [
+        {
+          "delete": [
+            "a"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [
+            "f"
+          ],
+          "insert": []
+        },
+        {
+          "delete": [],
+          "insert": [
+            "c"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Empty vocabulary and empty update",
+    "request": {
+      "program": {
+        "atoms": [],
+        "facts": [],
+        "rules": []
+      },
+      "updates": [
+        {
+          "delete": [],
+          "insert": []
+        }
+      ]
+    }
+  }
+]
