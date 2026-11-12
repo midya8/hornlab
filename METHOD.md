@@ -1,4 +1,4 @@
-# HornLab: derivation, classical models and seed support
+# HornLab inference and seed-support method
 
 [Live inspector](https://midya8.github.io/hornlab/) · [Source](https://github.com/midya8/hornlab)
 
