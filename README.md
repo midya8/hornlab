@@ -1,12 +1,18 @@
 # HornLab
 
-A circle is not a proof. A bounded positive propositional definite-Horn workbench with complete closure-round, model and minimal initial-fact support witnesses.
+HornLab computes what follows from supplied positive propositional definite-Horn rules and initial facts. It shows every closure round, satisfying model and minimal initial-fact support. Circular rule support alone does not establish entailment.
+
+Three inspectors vary different inputs:
+
+- [Inference and seed supports](METHOD.md): keep rules fixed and inspect which initial facts suffice for each atom.
+- [Rule deletion](RULES.md): keep initial facts fixed and inspect minimal rule supports and deletion sets.
+- [Fact maintenance](UPDATES.md): apply explicit fact changes with fixed rules and inspect overdeletion, restoration and delta propagation.
 
 [Live inspector](https://midya8.github.io/hornlab/) · [Method and inspected sources](METHOD.md)
 
 The default program has a nonleast supported model containing an unsupported cycle. Forward chaining derives only its initial seed. A satisfying model can contain atoms without any rule justification; a supported model can justify atoms circularly. Positive entailment is captured by the least model, not by either weaker check. Not entailed is not classically false: every definite-Horn program here has an all-true model.
 
-## Inspect
+## What the inference inspector shows
 
 - Every synchronous closure round, including the stable last round, and every indexed rule's missing premises, readiness and newly derivable head.
 - All classical satisfying assignments, supported-model flags and the unique least model.
@@ -37,11 +43,11 @@ Ten original synthetic controls retain 19 rounds, 13 models, 32 atomic queries a
 
 At most six atoms, eight indexed rules and 65,536 input bytes. Positive propositional definite clauses only: no negation, denials, variables, functions, relation tuples, unification, SLD search or full Datalog/Prolog syntax. Counts are exact finite enumeration, not probabilities or scalability evidence. Supports are subsets of initial facts, not all proof trees, rule provenance or causal explanations. Native verification shares input validation with generation and validates the canonical report, not a formal proof or signed source. The browser has no independent report verifier. Established inference/model theory, not a new algorithm or a production rule engine.
 
-## Rule-deletion audit (v0.2)
+## Rule-deletion audit
 
 [Every route, every break](https://midya8.github.io/hornlab/rules.html) varies indexed rules while fixing initial facts. Inspect all retained subsets, synchronous closures, all minimal rule supports and all minimal deletion sets, every removal/restoration boundary and both minimal-hitting-set dualities. Initial facts cannot be broken by rule deletion; an already absent atom has the empty deletion set. See [RULES.md](RULES.md) for exact semantics, independent verification, controls and inspected primary sources. Select `--rules` on either CLI entry point, with `--verify` for exported rule audits. The original inference and seed-support inspector remains unchanged.
 
-## Fact maintenance (v0.3)
+## Fact maintenance
 
 [Deletion has a derivation debt](https://midya8.github.io/hornlab/updates.html) applies sequences of explicit fact deletions and insertions while keeping rules fixed. Inspect conservative overdeletion, surviving one-step derivations, restored and inserted delta propagation, and every per-rule decision. A deliberately local-support pruning contrast shows why circular local counts do not prove a consequence still follows.
 
